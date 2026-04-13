@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    
+    <!-- Console Appender - Clean output -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File Appender - Detailed logs -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>threatscope-debug.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Suppress pcap4j debug logs completely -->
+    <logger name="org.pcap4j" level="ERROR" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!-- Suppress SLF4J internal logs -->
+    <logger name="org.slf4j" level="ERROR" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!-- Root logger - only show application output -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
